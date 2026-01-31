@@ -422,102 +422,101 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.95rem;
         }
-        /* Mobile Menu - 100% mintprompt.in/blog.html */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    right: -400px; /* Slide from right */
-    width: 400px;
-    height: 100vh;
-    background: linear-gradient(180deg, rgba(45, 27, 105, 0.98), rgba(30, 27, 75, 0.98));
-    backdrop-filter: blur(25px);
-    border-left: 1px solid rgba(139, 92, 246, 0.3);
-    z-index: 2000;
-    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    padding: 0;
-    box-shadow: -20px 0 60px rgba(139, 92, 246, 0.2);
+        /* LearnStream Menu Button - Top Left Fixed */
+.menu-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  pointer-events: auto;
 }
 
-.mobile-menu.active {
-    right: 0;
+.menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(158, 240, 26, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(158, 240, 26, 0.3);
+  border-radius: 12px;
+  color: #9ef01a;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(158, 240, 26, 0.1);
+  transition: all 0.2s ease;
+  border: none;
 }
 
-.mobile-menu-top {
-    padding: 2.5rem 2.5rem 2rem;
-    position: sticky;
-    top: 0;
-    background: inherit;
-    backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(139, 92, 246, 0.25);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.menu-btn:hover, #menuBtn.active {
+  background: rgba(158, 240, 26, 0.25);
+  border-color: #9ef01a;
+  box-shadow: 0 6px 25px rgba(158, 240, 26, 0.2);
+  transform: translateY(-2px);
 }
 
-.mobile-logo {
-    font-size: 1.85rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4a 50%, #ffd700 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.04em;
+.menu-dropdown {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background: rgba(15, 15, 15, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(158, 240, 26, 0.2);
+  border-radius: 12px;
+  min-width: 180px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  padding: 8px 0;
+  list-style: none;
 }
 
-.mobile-close {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(139, 92, 246, 0.25);
-    border: 1px solid rgba(139, 92, 246, 0.5);
-    color: #ffffff;
-    font-size: 1.4rem;
-    font-weight: 300;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.menu-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
-.mobile-close:hover {
-    background: rgba(139, 92, 246, 0.45);
-    transform: scale(1.05);
+.menu-link {
+  display: block;
+  padding: 14px 20px;
+  color: #eaeaea;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
 }
 
-.mobile-menu ul {
-    list-style: none;
-    padding: 2rem 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.mobile-menu .nav-item {
-    font-size: 1.12rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.88);
-    padding: 1.4rem 2.8rem;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: block;
-    position: relative;
-    border-left: 4px solid transparent;
-}
-
-.mobile-menu .nav-item:hover {
-    color: #ffffff !important;
-    background: rgba(139, 92, 246, 0.18);
-    border-left-color: #8b5cf6;
-    padding-left: 3.4rem;
-    transform: translateX(6px);
+.menu-link:hover, .menu-link.active {
+  background: rgba(158, 240, 26, 0.1);
+  color: #9ef01a;
+  border-left-color: #9ef01a;
 }
 
 @media (max-width: 768px) {
-    .hamburger { display: flex; }
-    .nav-menu { display: none; }
+  .menu-container {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .menu-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  
+  .menu-dropdown {
+    min-width: 160px;
+    right: 0;
+    left: auto;
+  }
     }
+      
 
         
             .main-content {
@@ -575,39 +574,21 @@
     </style>
 </head>
 <body>
-   <!-- Header (unchanged) -->
-<header class="header">
-    <div class="logo">LearnStream</div>
-    <nav>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="nav-item active" onclick="setActiveNav(this)">Home</a></li>
-            <li><a href="search.html" class="nav-item" onclick="setActiveNav(this)">Search</a></li>
-            <li><a href="library.html" class="nav-item" onclick="setActiveNav(this)">Library</a></li>
-            <li><a href="creator.html" class="nav-item" onclick="setActiveNav(this)">Creator</a></li>
-            <li><a href="profile.html" class="nav-item" onclick="setActiveNav(this)">Profile</a></li>
-            <li><a href="logout.html" class="nav-item" onclick="setActiveNav(this)">Logout</a></li>
-        </ul>
-    </nav>
-    <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-    </div>
-</header>
-
-<!-- Mobile Menu Overlay - Mintprompt.in EXACT -->
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-top">
-        <div class="mobile-logo">LearnStream</div>
-        <button class="mobile-close" id="mobileClose">×</button>
-    </div>
-    <ul>
-        <li><a href="index.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Home</a></li>
-        <li><a href="search.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Search</a></li>
-        <li><a href="library.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Library</a></li>
-        <li><a href="creator.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Creator</a></li>
-        <li><a href="profile.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Profile</a></li>
-        <li><a href="logout.html" class="nav-item" onclick="setActiveNav(this); closeMobileMenu()">Logout</a></li>
-    </ul>
+    <!-- LearnStream Menu Button - Top Left -->
+<div class="menu-container">
+  <button class="menu-btn" onclick="toggleMenu()" title="Menu" id="menuBtn">
+    ☰
+  </button>
+  <div class="menu-dropdown" id="menuDropdown">
+    <a href="index.html" class="menu-link" onclick="setActiveNav(this)">🏠 Home</a>
+    <a href="search.html" class="menu-link" onclick="setActiveNav(this)">🔍 Search</a>
+    <a href="library.html" class="menu-link" onclick="setActiveNav(this)">📚 Library</a>
+    <a href="creator.html" class="menu-link" onclick="setActiveNav(this)">✨ Creator</a>
+    <a href="profile.html" class="menu-link" onclick="setActiveNav(this)">👤 Profile</a>
+    <a href="logout.html" class="menu-link" onclick="setActiveNav(this)">🚪 Logout</a>
+  </div>
 </div>
+   
 
     <!-- Main Content -->
     <main class="main-content">
@@ -716,48 +697,37 @@
     </footer>
 
     <script>
-        // ✅ PERFECT mintprompt.in mobile menu + your existing functions
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.querySelector('.mobile-close'); // Close button
+        // Menu Toggle
+function toggleMenu() {
+  const dropdown = document.getElementById('menuDropdown');
+  const btn = document.getElementById('menuBtn');
+  dropdown.classList.toggle('show');
+  btn.classList.toggle('active');
+}
 
-hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = hamburger.classList.contains('active') ? 'hidden' : '';
+// Close menu on outside click
+document.addEventListener('click', function(event) {
+  const menu = document.querySelector('.menu-container');
+  const dropdown = document.getElementById('menuDropdown');
+  const btn = document.getElementById('menuBtn');
+  if (!menu.contains(event.target)) {
+    dropdown.classList.remove('show');
+    btn.classList.remove('active');
+  }
 });
 
-// Close button handler
-mobileClose?.addEventListener('click', closeMobileMenu);
-
-// Close on backdrop/overlay click (if you add backdrop)
-document.addEventListener('click', function(e) {
-    if (e.target === mobileMenu) {
-        closeMobileMenu();
-    }
-});
+// Your existing nav functions (unchanged)
+function setActiveNav(element) {
+  document.querySelectorAll('.nav-item, .menu-link').forEach(item => {
+    item.classList.remove('active');
+  });
+  element.classList.add('active');
+}
 
 function closeMobileMenu() {
-    hamburger.classList.remove('active');
-    mobileMenu.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// Your existing nav function (unchanged)
-function setActiveNav(activeLink) {
-    document.querySelectorAll('.nav-item').forEach(link => {
-        link.classList.remove('active');
-    });
-    activeLink.classList.add('active');
-    closeMobileMenu(); // ✅ Auto-close menu
-}
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-        closeMobileMenu();
-    }
-});
+  document.getElementById('mobileMenu').classList.remove('active');
+  document.getElementById('hamburger').classList.remove('active');
+        }
         // Hero search - Enter to search
         document.getElementById('heroSearch').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -858,6 +828,7 @@ document.addEventListener('keydown', function(e) {
     </script>
 </body>
 </html>
+
 
 
 
