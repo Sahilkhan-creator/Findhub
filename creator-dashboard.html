@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Dashboard - LearnStream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #3b82f6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Glass effect utility */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            padding: 3rem 0 2rem;
+        }
+
+        .dashboard-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .creator-badge {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Analytics Overview */
+        .analytics-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .analytics-card {
+            padding: 2rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .analytics-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .analytics-card:hover::before {
+            opacity: 1;
+        }
+
+        .analytics-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .analytics-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .analytics-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .analytics-trend {
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--danger);
+        }
+
+        /* Upload Panel */
+        .upload-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .upload-panel {
+            padding: 2.5rem;
+            border-radius: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tags-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag-input-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: var(--text);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Tutorials List */
+        .tutorials-section {
+            margin-bottom: 3rem;
+        }
+
+        .tutorials-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tutorial-card {
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .tutorial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+        }
+
+        .tutorial-card:hover::before {
+            opacity: 1;
+        }
+
+        .tutorial-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .tutorial-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .status-published {
+            color: var(--success);
+        }
+
+        .status-draft {
+            color: var(--warning);
+        }
+
+        .tutorial-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tutorial-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .tutorial-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tutorial-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.4rem 0.875rem;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tutorial-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tutorial-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+
+        .tutorial-card:hover .tutorial-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Charts Section */
+        .charts-section {
+            margin-bottom: 3rem;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .chart-card {
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .chart-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: 2px dashed var(--glass-border);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .empty-state.active {
+            display: block;
+        }
+
+        .empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .empty-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 600px;
+            width: 90%;
+            padding: 2.5rem;
+            border-radius: 24px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .toast.active {
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s;
+                border-top: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .dashboard-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .dashboard-title h1 {
+                font-size: 2rem;
+            }
+
+            .analytics-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .tutorials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">LearnStream</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Search</a></li>
+                    <li><a href="#">Library</a></li>
+                    <li><a href="#" class="active">Creator Dashboard</a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <div class="dashboard-title animate-in">
+                <h1>Creator Dashboard</h1>
+                <div class="creator-badge">
+                    <span>✨</span>
+                    <span>Pro Creator</span>
+                </div>
+            </div>
+            <p class="dashboard-subtitle">Manage your tutorials and track performance</p>
+        </div>
+    </section>
+
+    <!-- Analytics Overview -->
+    <section class="analytics-overview container animate-in">
+        <div class="analytics-card glass">
+            <div class="analytics-icon">👁️</div>
+            <div class="analytics-value" data-target="12458">0</div>
+            <div class="analytics-label">Total Views</div>
+            <div class="analytics-trend">
+                <span>↗️</span>
+                <span>+12.5% from last month</span>
+            </div>
+        </div>
+
+        <div class="analytics-card glass">
+            <div class="analytics-icon">⭐</div>
+            <div class="analytics-value">4.8</div>
+            <div class="analytics-label">Average Rating</div>
+            <div class="analytics-trend">
+                <span>↗️</span>
+                <span>+0.3 from last month</span>
+            </div>
+        </div>
+
+        <div class="analytics-card glass">
+            <div class="analytics-icon">💬</div>
+            <div class="analytics-value" data-target="342">0</div>
+            <div class="analytics-label">Total Comments</div>
+            <div class="analytics-trend">
+                <span>↗️</span>
+                <span>+8.2% from last month</span>
+            </div>
+        </div>
+
+        <div class="analytics-card glass">
+            <div class="analytics-icon">🎯</div>
+            <div class="analytics-value">67%</div>
+            <div class="analytics-label">Completion Rate</div>
+            <div class="analytics-trend">
+                <span>↗️</span>
+                <span>+5.1% from last month</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Tutorial Panel -->
+    <section class="upload-section container">
+        <h2 class="section-title">Upload New Tutorial</h2>
+        <div class="upload-panel glass">
+            <form id="uploadForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="youtubeUrl">YouTube URL *</label>
+                        <input 
+                            type="url" 
+                            id="youtubeUrl" 
+                            class="form-input" 
+                            placeholder="https://www.youtube.com/watch?v=..."
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseTitle">Course Title *</label>
+                        <input 
+                            type="text" 
+                            id="courseTitle" 
+                            class="form-input" 
+                            placeholder="e.g., Advanced React Patterns & Best Practices"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="description">Short Description *</label>
+                        <textarea 
+                            id="description" 
+                            class="form-textarea" 
+                            placeholder="Describe what students will learn in this tutorial..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="topic">Topic *</label>
+                            <select id="topic" class="form-select" required>
+                                <option value="">Select a topic</option>
+                                <option value="tech">Tech & Programming</option>
+                                <option value="design">Design & Creative</option>
+                                <option value="business">Business & Marketing</option>
+                                <option value="lifestyle">Lifestyle & Personal Growth</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="skillLevel">Skill Level *</label>
+                            <select id="skillLevel" class="form-select" required>
+                                <option value="">Select skill level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="language">Language *</label>
+                            <select id="language" class="form-select" required>
+                                <option value="">Select language</option>
+                                <option value="english">English</option>
+                                <option value="spanish">Spanish</option>
+                                <option value="french">French</option>
+                                <option value="german">German</option>
+                                <option value="hindi">Hindi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="module">Module/Chapter (Optional)</label>
+                        <input 
+                            type="text" 
+                            id="module" 
+                            class="form-input" 
+                            placeholder="e.g., Module 3: Advanced Hooks"
+                        >
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="submit" class="btn btn-primary">
+                            <span>📤</span>
+                            <span>Add Tutorial</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('uploadForm').reset()">
+                            <span>Reset</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Uploaded Tutorials -->
+    <section class="tutorials-section container">
+        <div class="tutorials-header">
+            <h2 class="section-title">Your Tutorials</h2>
+            <div style="display: flex; gap: 1rem;">
+                <select class="form-select" style="width: auto;">
+                    <option>All Tutorials</option>
+                    <option>Published</option>
+                    <option>Draft</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tutorials-grid" id="tutorialsGrid">
+            <!-- Tutorial Card 1 -->
+            <div class="tutorial-card glass">
+                <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&h=300&fit=crop" alt="Tutorial" class="tutorial-thumbnail">
+                <div class="tutorial-status status-published">Published</div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Advanced React Patterns & Best Practices</h3>
+                    <p class="tutorial-description">Master advanced React concepts including custom hooks, context API, and performance optimization.</p>
+                    <div class="tutorial-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Advanced</span>
+                        <span class="tag">Frontend</span>
+                    </div>
+                    <div class="tutorial-meta">
+                        <div class="meta-item">
+                            <span>👁️</span>
+                            <span>3.2K views</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⭐</span>
+                            <span>4.9</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>87</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-actions">
+                        <button class="btn btn-primary btn-small">
+                            <span>👁️ Preview</span>
+                        </button>
+                        <button class="btn btn-secondary btn-small">
+                            <span>✏️ Edit</span>
+                        </button>
+                        <button class="btn btn-danger btn-small">
+                            <span>🗑️ Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tutorial Card 2 -->
+            <div class="tutorial-card glass">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&h=300&fit=crop" alt="Tutorial" class="tutorial-thumbnail">
+                <div class="tutorial-status status-published">Published</div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Python for Data Science & Machine Learning</h3>
+                    <p class="tutorial-description">Comprehensive guide to data analysis with Pandas, NumPy, and ML fundamentals.</p>
+                    <div class="tutorial-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Science</span>
+                        <span class="tag">ML</span>
+                    </div>
+                    <div class="tutorial-meta">
+                        <div class="meta-item">
+                            <span>👁️</span>
+                            <span>5.8K views</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⭐</span>
+                            <span>4.7</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>124</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-actions">
+                        <button class="btn btn-primary btn-small">
+                            <span>👁️ Preview</span>
+                        </button>
+                        <button class="btn btn-secondary btn-small">
+                            <span>✏️ Edit</span>
+                        </button>
+                        <button class="btn btn-danger btn-small">
+                            <span>🗑️ Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tutorial Card 3 -->
+            <div class="tutorial-card glass">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop" alt="Tutorial" class="tutorial-thumbnail">
+                <div class="tutorial-status status-draft">Draft</div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Complete UI/UX Design with Figma</h3>
+                    <p class="tutorial-description">Learn modern interface design, prototyping, and design systems.</p>
+                    <div class="tutorial-tags">
+                        <span class="tag">Design</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">UX</span>
+                    </div>
+                    <div class="tutorial-meta">
+                        <div class="meta-item">
+                            <span>👁️</span>
+                            <span>0 views</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⭐</span>
+                            <span>-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>0</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-actions">
+                        <button class="btn btn-primary btn-small">
+                            <span>📤 Publish</span>
+                        </button>
+                        <button class="btn btn-secondary btn-small">
+                            <span>✏️ Edit</span>
+                        </button>
+                        <button class="btn btn-danger btn-small">
+                            <span>🗑️ Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tutorial Card 4 -->
+            <div class="tutorial-card glass">
+                <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=500&h=300&fit=crop" alt="Tutorial" class="tutorial-thumbnail">
+                <div class="tutorial-status status-published">Published</div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Modern JavaScript: ES6+ Deep Dive</h3>
+                    <p class="tutorial-description">Explore closures, async patterns, promises, and modern JS practices.</p>
+                    <div class="tutorial-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">ES6+</span>
+                        <span class="tag">Web Dev</span>
+                    </div>
+                    <div class="tutorial-meta">
+                        <div class="meta-item">
+                            <span>👁️</span>
+                            <span>2.1K views</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⭐</span>
+                            <span>4.8</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>56</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-actions">
+                        <button class="btn btn-primary btn-small">
+                            <span>👁️ Preview</span>
+                        </button>
+                        <button class="btn btn-secondary btn-small">
+                            <span>✏️ Edit</span>
+                        </button>
+                        <button class="btn btn-danger btn-small">
+                            <span>🗑️ Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">📹</div>
+            <h2 class="empty-title">No tutorials yet</h2>
+            <p class="empty-description">Start creating by uploading your first tutorial above</p>
+        </div>
+    </section>
+
+    <!-- Analytics Charts -->
+    <section class="charts-section container">
+        <h2 class="section-title">Performance Analytics</h2>
+        <div class="charts-grid">
+            <div class="chart-card glass">
+                <div class="chart-header">
+                    <h3 class="chart-title">Views Over Time</h3>
+                    <p class="chart-subtitle">Last 30 days</p>
+                </div>
+                <div class="chart-placeholder">
+                    📊 Chart: Views trend visualization
+                </div>
+            </div>
+
+            <div class="chart-card glass">
+                <div class="chart-header">
+                    <h3 class="chart-title">Engagement Rate</h3>
+                    <p class="chart-subtitle">Comments & ratings</p>
+                </div>
+                <div class="chart-placeholder">
+                    📈 Chart: Engagement metrics
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-copyright">
+                    © 2026 LearnStream. All rights reserved.
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast toast-success" id="toast">
+        <span>✓</span>
+        <span id="toastMessage">Tutorial added successfully!</span>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Animated Counter
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            if (!target) return;
+            
+            let current = 0;
+            const increment = target / 50;
+            const duration = 1500;
+            const stepTime = duration / 50;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, stepTime);
+        }
+
+        // Animate stats on page load
+        window.addEventListener('load', () => {
+            const statValues = document.querySelectorAll('.analytics-value[data-target]');
+            statValues.forEach(stat => animateCounter(stat));
+        });
+
+        // Form Submission
+        const uploadForm = document.getElementById('uploadForm');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        uploadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                youtubeUrl: document.getElementById('youtubeUrl').value,
+                title: document.getElementById('courseTitle').value,
+                description: document.getElementById('description').value,
+                topic: document.getElementById('topic').value,
+                skillLevel: document.getElementById('skillLevel').value,
+                language: document.getElementById('language').value,
+                module: document.getElementById('module').value
+            };
+
+            // Simulate upload
+            showToast('Tutorial added successfully! 🎉');
+            
+            // Reset form
+            uploadForm.reset();
+
+            // Scroll to tutorials section
+            setTimeout(() => {
+                document.querySelector('.tutorials-section').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }, 1500);
+        });
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = `toast toast-${type}`;
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Tutorial card actions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-danger')) {
+                const card = e.target.closest('.tutorial-card');
+                if (confirm('Are you sure you want to delete this tutorial?')) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.remove();
+                        showToast('Tutorial deleted successfully');
+                    }, 300);
+                }
+            }
+
+            if (e.target.closest('.tutorial-actions .btn-primary')) {
+                const title = e.target.closest('.tutorial-card').querySelector('.tutorial-title').textContent;
+                showToast(`Opening preview for: ${title}`);
+            }
+
+            if (e.target.closest('.tutorial-actions .btn-secondary')) {
+                const title = e.target.closest('.tutorial-card').querySelector('.tutorial-title').textContent;
+                showToast(`Editing: ${title}`);
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe tutorial cards
+        document.querySelectorAll('.tutorial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(card);
+        });
+
+        // Form input animations
+        const inputs = document.querySelectorAll('.form-input, .form-textarea, .form-select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.01)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
