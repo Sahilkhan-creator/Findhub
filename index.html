@@ -395,14 +395,14 @@
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.95rem;
         }
-        /* LearnStream Menu Button - Top Left Fixed */
-.menu-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;  /* Changed from left: 20px */
-  z-index: 1001;
+        .menu-container {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  left: auto !important;
+  z-index: 9999 !important;
   pointer-events: auto;
-}
+        }
 
 .menu-btn {
   display: flex;
@@ -801,6 +801,7 @@ function closeMobileMenu() {
     </script>
 </body>
 </html>
+
 
 
 
