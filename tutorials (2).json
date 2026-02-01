@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "Complete React Mastery Course",
+    "description": "Master React from basics to advanced concepts including hooks, context, and performance optimization",
+    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&h=300&fit=crop",
+    "tags": ["React", "JavaScript", "Advanced"],
+    "duration": "12 hours",
+    "rating": 4.9,
+    "students": "2.4K"
+  },
+  {
+    "id": 2,
+    "title": "Python for Data Science",
+    "description": "Complete beginner to advanced Python course covering Pandas, NumPy, and data visualization",
+    "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&h=300&fit=crop",
+    "tags": ["Python", "Data Science", "Beginner"],
+    "duration": "15 hours",
+    "rating": 4.8,
+    "students": "3.1K"
+  },
+  {
+    "id": 3,
+    "title": "UI/UX Design with Figma",
+    "description": "Learn professional interface design, prototyping, and design systems from scratch",
+    "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop",
+    "tags": ["Design", "Figma", "UX"],
+    "duration": "10 hours",
+    "rating": 4.9,
+    "students": "1.8K"
+  },
+  {
+    "id": 4,
+    "title": "Modern JavaScript ES6+",
+    "description": "Deep dive into modern JavaScript features, async programming, and best practices",
+    "thumbnail": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=500&h=300&fit=crop",
+    "tags": ["JavaScript", "Web Dev", "Intermediate"],
+    "duration": "8 hours",
+    "rating": 4.7,
+    "students": "2.9K"
+  },
+  {
+    "id": 5,
+    "title": "Machine Learning Fundamentals",
+    "description": "Introduction to ML concepts, algorithms, and practical implementation with Python",
+    "thumbnail": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500&h=300&fit=crop",
+    "tags": ["Machine Learning", "Python", "AI"],
+    "duration": "20 hours",
+    "rating": 4.9,
+    "students": "4.2K"
+  },
+  {
+    "id": 6,
+    "title": "Full Stack Web Development",
+    "description": "Complete guide to building modern web apps with Node.js, Express, MongoDB, and React",
+    "thumbnail": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500&h=300&fit=crop",
+    "tags": ["Full Stack", "Node.js", "React"],
+    "duration": "25 hours",
+    "rating": 4.8,
+    "students": "5.6K"
+  },
+  {
+    "id": 7,
+    "title": "Digital Marketing Masterclass",
+    "description": "Complete digital marketing course covering SEO, social media, and content strategy",
+    "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+    "tags": ["Marketing", "Business", "Beginner"],
+    "duration": "18 hours",
+    "rating": 4.6,
+    "students": "3.7K"
+  },
+  {
+    "id": 8,
+    "title": "Docker & Kubernetes Essentials",
+    "description": "Master containerization and orchestration for modern DevOps workflows",
+    "thumbnail": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=500&h=300&fit=crop",
+    "tags": ["DevOps", "Docker", "Advanced"],
+    "duration": "14 hours",
+    "rating": 4.8,
+    "students": "2.1K"
+  },
+  {
+    "id": 9,
+    "title": "Photography Basics to Pro",
+    "description": "Learn composition, lighting, editing, and professional photography techniques",
+    "thumbnail": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=500&h=300&fit=crop",
+    "tags": ["Photography", "Creative", "Beginner"],
+    "duration": "12 hours",
+    "rating": 4.7,
+    "students": "2.8K"
+  },
+  {
+    "id": 10,
+    "title": "Blockchain & Web3 Development",
+    "description": "Build decentralized applications with Solidity, smart contracts, and Web3.js",
+    "thumbnail": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&h=300&fit=crop",
+    "tags": ["Blockchain", "Web3", "Advanced"],
+    "duration": "16 hours",
+    "rating": 4.9,
+    "students": "1.9K"
+  },
+  {
+    "id": 11,
+    "title": "iOS App Development with Swift",
+    "description": "Create beautiful iOS apps from scratch using Swift and SwiftUI",
+    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
+    "tags": ["iOS", "Swift", "Mobile"],
+    "duration": "22 hours",
+    "rating": 4.8,
+    "students": "3.3K"
+  },
+  {
+    "id": 12,
+    "title": "Cybersecurity Fundamentals",
+    "description": "Learn ethical hacking, network security, and protect systems from threats",
+    "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop",
+    "tags": ["Security", "Networking", "Intermediate"],
+    "duration": "18 hours",
+    "rating": 4.7,
+    "students": "2.5K"
+  }
+]
