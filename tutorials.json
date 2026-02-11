@@ -1,0 +1,116 @@
+[
+  {
+    "id": 1,
+    "title": "React for Beginners",
+    "category": "Web Development",
+    "description": "Complete beginner guide to React.js. Learn components, hooks, state management, and build your first modern web application from scratch.",
+    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop",
+    "link": "https://example.com/react-beginners",
+    "premium": false
+  },
+  {
+    "id": 2,
+    "title": "Advanced Machine Learning",
+    "category": "AI",
+    "description": "Deep dive into machine learning concepts. Master neural networks, deep learning, and advanced algorithms used in real-world AI applications.",
+    "thumbnail": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
+    "link": "https://example.com/ml-advanced",
+    "premium": true,
+    "price": 49
+  },
+  {
+    "id": 3,
+    "title": "UI/UX Design Fundamentals",
+    "category": "Design",
+    "description": "Learn the principles of beautiful user interface design. Master color theory, typography, layout, and create stunning digital experiences.",
+    "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
+    "link": "https://example.com/uiux-fundamentals",
+    "premium": false
+  },
+  {
+    "id": 4,
+    "title": "Python Data Science Masterclass",
+    "category": "Data Science",
+    "description": "Comprehensive Python course for data science. Learn pandas, numpy, matplotlib, and machine learning with hands-on projects.",
+    "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+    "link": "https://example.com/python-data-science",
+    "premium": true,
+    "price": 79
+  },
+  {
+    "id": 5,
+    "title": "JavaScript ES6+ Complete Guide",
+    "category": "Web Development",
+    "description": "Master modern JavaScript from ES6 to ES2023. Arrow functions, destructuring, async/await, modules, and all the latest features.",
+    "thumbnail": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop",
+    "link": "https://example.com/javascript-es6",
+    "premium": false
+  },
+  {
+    "id": 6,
+    "title": "Cloud Computing with AWS",
+    "category": "Cloud",
+    "description": "Become an AWS certified cloud practitioner. Learn EC2, S3, Lambda, and deploy scalable applications on Amazon Web Services.",
+    "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop",
+    "link": "https://example.com/aws-cloud",
+    "premium": true,
+    "price": 99
+  },
+  {
+    "id": 7,
+    "title": "Mobile App Development with Flutter",
+    "category": "Mobile Development",
+    "description": "Build beautiful cross-platform mobile apps with Flutter and Dart. Create iOS and Android apps from a single codebase.",
+    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
+    "link": "https://example.com/flutter-mobile",
+    "premium": false
+  },
+  {
+    "id": 8,
+    "title": "Cybersecurity Fundamentals",
+    "category": "Security",
+    "description": "Learn essential cybersecurity concepts. Understand threats, vulnerabilities, encryption, and how to protect systems from attacks.",
+    "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop",
+    "link": "https://example.com/cybersecurity",
+    "premium": true,
+    "price": 69
+  },
+  {
+    "id": 9,
+    "title": "Docker & Kubernetes Mastery",
+    "category": "DevOps",
+    "description": "Containerize applications with Docker and orchestrate with Kubernetes. Master CI/CD pipelines and modern deployment strategies.",
+    "thumbnail": "https://images.unsplash.com/photo-1667372393119-c8f473882e8e?w=400&h=300&fit=crop",
+    "link": "https://example.com/docker-kubernetes",
+    "premium": true,
+    "price": 89
+  },
+  {
+    "id": 10,
+    "title": "Figma for Web Designers",
+    "category": "Design",
+    "description": "Create professional web designs in Figma. Learn auto-layout, components, prototyping, and design handoff workflows.",
+    "thumbnail": "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=400&h=300&fit=crop",
+    "link": "https://example.com/figma-design",
+    "premium": false
+  },
+  {
+    "id": 11,
+    "title": "Node.js Backend Development",
+    "category": "Web Development",
+    "description": "Build scalable backend APIs with Node.js and Express. Learn authentication, database integration, and RESTful API design.",
+    "thumbnail": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop",
+    "link": "https://example.com/nodejs-backend",
+    "premium": false
+  },
+  {
+    "id": 12,
+    "title": "Blockchain Development",
+    "category": "Blockchain",
+    "description": "Develop decentralized applications with Ethereum and Solidity. Learn smart contracts, Web3, and DeFi fundamentals.",
+    "thumbnail": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop",
+    "link": "https://example.com/blockchain-dev",
+    "premium": true,
+    "price": 129
+  }
+]
